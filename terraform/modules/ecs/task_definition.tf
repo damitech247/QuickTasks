@@ -50,7 +50,7 @@ resource "aws_ecs_task_definition" "quicktasks" {
         },
         {
           name  = "DB_HOST"
-          value = "localhost"
+          value = "quicktasks.cwvwckk60a50.us-east-1.rds.amazonaws.com"
         },
         {
           name  = "ROOT_ADMIN_EMAIL"
