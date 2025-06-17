@@ -1,0 +1,38 @@
+# Node modules
+**/node_modules/
+
+# Environment files
+**/.env
+**/.env.*
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Build outputs
+/build
+/.svelte-kit
+
+# Vite cache
+.vite
+
+# SvelteKit output
+.svelte-kit/
+
+# Optional: Ignore local dev IDE/editor settings
+.vscode/
+.idea/
+*.sw?
+
+# Optional: Ignore lock files if you prefer only one (uncomment if needed)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml

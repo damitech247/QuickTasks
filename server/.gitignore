@@ -1,0 +1,38 @@
+# Node modules (anywhere in the project)
+**/node_modules/
+
+# Environment variables
+**/.env
+**/.env.*
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Runtime files
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.sw?
+
+# Optional: Ignore coverage and build outputs
+coverage/
+dist/
+build/
+
+# Optional: lock files (uncomment depending on your setup)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
