@@ -1,5 +1,5 @@
 module "ecs_cluster" {
-  source = "../../modules/ecs-cluster"
+  source = "../../modules/ecs"
 
   environment = "prod"
   aws_region  = "us-east-1"
