@@ -1,3 +1,4 @@
+## Root Domain
 resource "aws_route53_record" "root_damitech" {
   zone_id = var.zone_id
   name    = "damitech.xyz"
