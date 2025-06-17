@@ -4,7 +4,7 @@ resource "aws_ecs_service" "quicktasks" {
   cluster         = aws_ecs_cluster.ecs_cluster.id
   task_definition = aws_ecs_task_definition.quicktasks.arn
   launch_type     = "FARGATE"
-  desired_count   = 1
+  desired_count   = 2
 
   network_configuration {
     subnets          = module.vpc.private_subnets
