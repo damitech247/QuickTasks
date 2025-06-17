@@ -12,7 +12,7 @@ resource "aws_ecs_service" "quicktasks" {
     assign_public_ip = false
   }
 
-    load_balancer {
+  load_balancer {
     target_group_arn = aws_lb_target_group.quicktasks.arn
     container_name   = "quicktasks"
     container_port   = 8080
