@@ -13,7 +13,7 @@ resource "aws_route53_record" "root_damitech" {
 
 resource "aws_route53_record" "www_damitech" {
   zone_id = var.zone_id
-  name    = "task.damitech.xyz"
+  name    = "tasks.damitech.xyz"
   type    = "A"
 
   alias {
