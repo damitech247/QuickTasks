@@ -2,12 +2,13 @@ name: Deployment Pipeline for API Service
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build-and-push:
-    name: Build, Push and deploy to ECS
+    name: Build and deploy to ECS
     runs-on: ubuntu-latest
 
     steps:
