@@ -15,7 +15,7 @@ resource "aws_ecs_task_definition" "quicktasks" {
   container_definitions = jsonencode([
     {
       name         = "quicktasks"
-      image        = "${var.container_registry}/quicktasks-${var.environment}:latest"
+      image        = "${var.container_registry}/damitech/quicktasks:latest"
       cpu          = 512
       memory       = 1024
       essential    = true
