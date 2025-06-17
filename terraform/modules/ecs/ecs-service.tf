@@ -17,12 +17,7 @@ resource "aws_ecs_service" "quicktasks" {
     container_name   = "quicktasks"
     container_port   = 8080
   }
-
-  depends_on = [
-    aws_lb_listener_rule.quicktasks,
-    aws_lb_target_group.quicktasks
-  ]
-
+  
   lifecycle {
     ignore_changes = [desired_count]
   }
