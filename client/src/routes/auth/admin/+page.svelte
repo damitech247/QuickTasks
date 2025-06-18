@@ -1,5 +1,7 @@
 <!-- client\src\routes\auth\admin\+page.svelte -->
 <script>
+    import { apiFetch } from "$lib/api/client";
+
     let email = "";
     let password = "";
     let error = "";
@@ -11,25 +13,18 @@
         isLoading = true;
 
         try {
-            const baseUrl =
-                typeof window !== "undefined" &&
-                window.location.hostname === "localhost"
-                    ? "http://localhost:8080"
-                    : "";
-
-            const res = await fetch(`${baseUrl}/api/login`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password, role: "admin" }),
+            const data = await apiFetch("/api/auth/login", "POST", {
+                email,
+                password,
+                role: "admin",
             });
 
-            if (res.ok) {
-                window.location.href = "/console";
-            } else {
-                error = "Login failed. Please check your credentials.";
-            }
+            localStorage.setItem("token", data.data.token);
+            localStorage.setItem("user", JSON.stringify(data.data.user));
+
+            window.location.href = "/console";
         } catch (err) {
-            error = "Network error. Please try again.";
+            error = err.message || "Login failed.";
         } finally {
             isLoading = false;
         }

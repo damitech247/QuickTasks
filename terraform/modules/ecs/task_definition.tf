@@ -26,6 +26,10 @@ resource "aws_ecs_task_definition" "quicktasks" {
           valueFrom = "arn:aws:secretsmanager:us-east-1:025016447278:secret:${var.environment}/ecs-DAQ9VL:JWT_SECRET::"
         },
         {
+          name      = "SLACK_WEBHOOK_URL"
+          valueFrom = "arn:aws:secretsmanager:us-east-1:025016447278:secret:${var.environment}/ecs-DAQ9VL:SLACK_WEBHOOK_URL::"
+        },
+        {
           name      = "ROOT_ADMIN_PASSWORD"
           valueFrom = "arn:aws:secretsmanager:us-east-1:025016447278:secret:${var.environment}/ecs-DAQ9VL:ROOT_ADMIN_PASSWORD::"
         }
