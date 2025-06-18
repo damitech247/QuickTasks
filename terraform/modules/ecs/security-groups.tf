@@ -40,11 +40,19 @@ resource "aws_security_group" "ecs_sg" {
   }
 
   ingress {
-    from_port       = 8080
-    to_port         = 9000
+    from_port       = 3000
+    to_port         = 3000
     protocol        = "tcp"
     security_groups = [aws_security_group.alb_sg.id]
-    description     = "Allow traffic from ALB to internal resources"
+    description     = "Allow traffic from ALB to web app"
+  }
+
+  ingress {
+    from_port       = 8080
+    to_port         = 8080
+    protocol        = "tcp"
+    security_groups = [aws_security_group.alb_sg.id]
+    description     = "Allow traffic from ALB to API"
   }
 
   egress {

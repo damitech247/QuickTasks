@@ -1,5 +1,5 @@
 resource "aws_ecs_task_definition" "quicktasks" {
-  family                   = "${var.environment}-quicktasks"
+  family                   = "${var.environment}-quicktasks-api"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = "512"
@@ -9,8 +9,8 @@ resource "aws_ecs_task_definition" "quicktasks" {
 
   container_definitions = jsonencode([
     {
-      name         = "quicktasks"
-      image        = "${var.container_registry}/damitech/quicktasks:latest"
+      name         = "quicktasks-api"
+      image        = "${var.container_registry}/damitech/quicktasks-api:latest"
       cpu          = 512
       memory       = 1024
       essential    = true
@@ -65,7 +65,49 @@ resource "aws_ecs_task_definition" "quicktasks" {
         options = {
           awslogs-group         = aws_cloudwatch_log_group.quicktasks_logs.name
           awslogs-region        = var.aws_region
-          awslogs-stream-prefix = "quicktasks"
+          awslogs-stream-prefix = "quicktasks-api"
+        }
+      }
+    }
+  ])
+}
+
+
+resource "aws_ecs_task_definition" "quicktasks_frontend" {
+  family                   = "${var.environment}-quicktasks-frontend"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = "512"
+  memory                   = "1024"
+  task_role_arn            = aws_iam_role.ecs_task_execution_role.arn
+  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+
+  container_definitions = jsonencode([
+    {
+      name         = "quicktasks-frontend"
+      image        = "${var.container_registry}/damitech/quicktasks-frontend:latest"
+      cpu          = 512
+      memory       = 1024
+      essential    = true
+      portMappings = [{ containerPort = 3000 }]
+
+      environment = [
+        {
+          name  = "NODE_ENV"
+          value = "production"
+        },
+        {
+          name  = "PUBLIC_API_BASE_URL"
+          value = "https://api.damitech.xyz"
+        }
+      ]
+
+      logConfiguration = {
+        logDriver = "awslogs"
+        options = {
+          awslogs-group         = aws_cloudwatch_log_group.quicktasks_logs.name
+          awslogs-region        = var.aws_region
+          awslogs-stream-prefix = "quicktasks-frontend"
         }
       }
     }
