@@ -13,7 +13,6 @@ QuickTasks is a scalable and secure SaaS task management application. It include
 ### `/` – Task Management Dashboard
 Main dashboard for managing tasks. Users can create, view, update, and delete tasks in a Kanban-style interface.
 - **Access**: Authenticated route for **both Users and Admins**
-- **Screenshot**:
 ![Task Dashboard](screenshots/home-page.png)
 
 ---
@@ -21,7 +20,6 @@ Main dashboard for managing tasks. Users can create, view, update, and delete ta
 ### `/auth` – Role Selection Page
 Login entry point where users choose to log in as either an admin or a regular user.
 - **Access**: Public (non-authenticated)
-- **Screenshot**:
 ![Auth Role Selection](screenshots/auth.png)
 
 ---
@@ -29,7 +27,6 @@ Login entry point where users choose to log in as either an admin or a regular u
 ### `/auth/user` – User Login Page
 Dedicated login page for regular users. On successful login, users are redirected to the Task Dashboard.
 - **Access**: Public (non-authenticated)
-- **Screenshot**:
 ![User Login](./screenshots/auth-user.png)
 
 ---
@@ -38,7 +35,6 @@ Dedicated login page for regular users. On successful login, users are redirecte
 
 Dedicated login page for administrators. Successful login redirects to the Admin Console.
 - **Access**: Public (non-authenticated)
-- **Screenshot**:
 ![Admin Login](./screenshots/auth-admin.png)
 
 ---
@@ -46,7 +42,6 @@ Dedicated login page for administrators. Successful login redirects to the Admin
 ### `/console` – Admin Console
 Admin-only interface for managing users. Admins can create, update, delete, and lock user accounts.
 - **Access**: Authenticated route for **Admins only**
-- **Screenshot**:
 ![Admin Console](./screenshots/console.png)
 
 ---
@@ -247,13 +242,13 @@ Authenticate a user and return a JWT token.
 
 ## Admin User Management (Requires Admin Role)
 
-### GET `/api/admin/users`
+#### GET `/api/admin/users`
 List all users.
 
-### GET `/api/admin/users/:id`
+#### GET `/api/admin/users/:id`
 Retrieve a single user by ID.
 
-### POST `/api/admin/users`
+#### POST `/api/admin/users`
 Create a new user.
 
 **Request Body**:
@@ -268,22 +263,22 @@ Create a new user.
 }
 ```
 
-### PUT `/api/admin/users/:id`
+#### PUT `/api/admin/users/:id`
 Update a user by ID.
 
-### DELETE `/api/admin/users/:id`
+#### DELETE `/api/admin/users/:id`
 Delete a user by ID.
 
 
 ## Task Management (Authenticated)
 
-### GET `/api/tasks`
+#### GET `/api/tasks`
 Get all tasks for the logged-in user.
 
-### GET `/api/tasks/:id`
+#### GET `/api/tasks/:id`
 Get a task by ID.
 
-### POST `/api/tasks`
+#### POST `/api/tasks`
 Create a new task.
 
 **Request Body**:
@@ -296,16 +291,16 @@ Create a new task.
 }
 ```
 
-### PUT `/api/tasks/:id`
+#### PUT `/api/tasks/:id`
 Update an existing task.
 
-### DELETE `/api/task/:id`
+#### DELETE `/api/task/:id`
 Delete a task by ID.
 
 
 ## User Profile
 
-### PUT `/api/profile/password`
+#### PUT `/api/profile/password`
 Update the authenticated user's password.
 
 **Request Body**:

@@ -1,39 +1,66 @@
+<!-- client\src\routes\console\+page.svelte -->
 <script>
+    import { onMount } from "svelte";
     import Navbar from "../../components/Navbar.svelte";
 
     let currentUser = {
-        firstName: "John",
-        lastName: "Doe",
-        email: "john.doe@company.com",
+        firstName: "Admin",
+        lastName: "",
+        email: "admin@damitech.xyz",
         role: "Admin",
     };
 
-    let users = [
-        {
-            id: 1,
-            firstName: "Alice",
-            lastName: "Johnson",
-            email: "alice.johnson@example.com",
-            role: "Admin",
-            status: "Active",
-        },
-        {
-            id: 2,
-            firstName: "Bob",
-            lastName: "Smith",
-            email: "bob.smith@example.com",
-            role: "User",
-            status: "Inactive",
-        },
-        {
-            id: 3,
-            firstName: "Carla",
-            lastName: "Nguyen",
-            email: "carla.nguyen@example.com",
-            role: "User",
-            status: "Active",
-        },
-    ];
+    onMount(() => {
+        const token = localStorage.getItem("token");
+        const user = localStorage.getItem("user");
+
+        if (!token || !user) {
+            window.location.href = "/auth";
+            return;
+        }
+
+        currentUser = JSON.parse(user);
+    });
+
+    import { redirect } from "@sveltejs/kit";
+
+    export function load() {
+        if (typeof localStorage !== "undefined") {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                throw redirect(302, "/auth");
+            }
+        }
+    }
+
+    let users = []
+
+    // let users = [
+    //     {
+    //         id: 1,
+    //         firstName: "Alice",
+    //         lastName: "Johnson",
+    //         email: "alice.johnson@example.com",
+    //         role: "Admin",
+    //         status: "Active",
+    //     },
+    //     {
+    //         id: 2,
+    //         firstName: "Bob",
+    //         lastName: "Smith",
+    //         email: "bob.smith@example.com",
+    //         role: "User",
+    //         status: "Inactive",
+    //     },
+    //     {
+    //         id: 3,
+    //         firstName: "Carla",
+    //         lastName: "Nguyen",
+    //         email: "carla.nguyen@example.com",
+    //         role: "User",
+    //         status: "Active",
+    //     },
+    // ];
 
     let showAddModal = false;
     let showEditModal = false;

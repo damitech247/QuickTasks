@@ -1,3 +1,4 @@
+// client\src\lib\api\client.js
 import { PUBLIC_API_BASE_URL } from '$env/static/public';
 
 export async function apiFetch(path, method = 'GET', body = null) {

@@ -1,66 +1,81 @@
 <!-- client\src\routes\+page.svelte -->
 <script>
+    import { onMount } from "svelte";
     import Navbar from "../components/Navbar.svelte";
 
     let currentUser = {
-        firstName: "John",
-        lastName: "Doe",
-        email: "john.doe@company.com",
+        firstName: "Admin",
+        lastName: "",
+        email: "admin@damitech.xyz",
         role: "Admin",
     };
 
-    let tasks = [
-        {
-            id: 1,
-            title: "Design user interface mockups",
-            description:
-                "Create wireframes and high-fidelity mockups for the new dashboard interface including user flows and interaction patterns",
-            status: "pending",
-            priority: "high",
-            deadline: "2025-06-20",
-            assignee: "Alice Johnson",
-        },
-        {
-            id: 2,
-            title: "Implement user authentication",
-            description:
-                "Set up JWT-based authentication system with login, logout, and password reset functionality",
-            status: "in-progress",
-            priority: "high",
-            deadline: "2025-06-18",
-            assignee: "Bob Smith",
-        },
-        {
-            id: 3,
-            title: "Write unit tests",
-            description:
-                "Create comprehensive unit tests for the user management module",
-            status: "pending",
-            priority: "medium",
-            deadline: null,
-            assignee: "Carla Nguyen",
-        },
-        {
-            id: 4,
-            title: "Deploy to staging",
-            description:
-                "Deploy the latest build to staging environment for QA testing",
-            status: "completed",
-            priority: "low",
-            deadline: "2025-06-15",
-            assignee: "John Doe",
-        },
-        {
-            id: 5,
-            title: "Database optimization",
-            description:
-                "Optimize database queries and add proper indexing to improve performance",
-            status: "in-progress",
-            priority: "medium",
-            deadline: "2025-06-25",
-            assignee: "Alice Johnson",
-        },
-    ];
+    onMount(() => {
+        const token = localStorage.getItem("token");
+        const user = localStorage.getItem("user");
+
+        if (!token || !user) {
+            window.location.href = "/auth";
+            return;
+        }
+
+        currentUser = JSON.parse(user);
+    });
+
+    let tasks = []
+
+    // let tasks = [
+    //     {
+    //         id: 1,
+    //         title: "Design user interface mockups",
+    //         description:
+    //             "Create wireframes and high-fidelity mockups for the new dashboard interface including user flows and interaction patterns",
+    //         status: "pending",
+    //         priority: "high",
+    //         deadline: "2025-06-20",
+    //         assignee: "Alice Johnson",
+    //     },
+    //     {
+    //         id: 2,
+    //         title: "Implement user authentication",
+    //         description:
+    //             "Set up JWT-based authentication system with login, logout, and password reset functionality",
+    //         status: "in-progress",
+    //         priority: "high",
+    //         deadline: "2025-06-18",
+    //         assignee: "Bob Smith",
+    //     },
+    //     {
+    //         id: 3,
+    //         title: "Write unit tests",
+    //         description:
+    //             "Create comprehensive unit tests for the user management module",
+    //         status: "pending",
+    //         priority: "medium",
+    //         deadline: null,
+    //         assignee: "Carla Nguyen",
+    //     },
+    //     {
+    //         id: 4,
+    //         title: "Deploy to staging",
+    //         description:
+    //             "Deploy the latest build to staging environment for QA testing",
+    //         status: "completed",
+    //         priority: "low",
+    //         deadline: "2025-06-15",
+    //         assignee: "John Doe",
+    //     },
+    //     {
+    //         id: 5,
+    //         title: "Database optimization",
+    //         description:
+    //             "Optimize database queries and add proper indexing to improve performance",
+    //         status: "in-progress",
+    //         priority: "medium",
+    //         deadline: "2025-06-25",
+    //         assignee: "Alice Johnson",
+    //     },
+    // ];
 
     let showAddModal = false;
     let showEditModal = false;
