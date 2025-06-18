@@ -1,4 +1,5 @@
 <!-- client\src\routes\console\+page.svelte -->
+
 <script>
     import { onMount } from "svelte";
     import Navbar from "../../components/Navbar.svelte";
