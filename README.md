@@ -8,10 +8,55 @@ QuickTasks is a scalable and secure SaaS task management application. It include
 *  **Swagger UI**: https://api.damitech.xyz/swagger
 *  **API Base URL**: https://api.damitech.xyz
 
+## Application Routes
+
+### `/` – Task Management Dashboard
+Main dashboard for managing tasks. Users can create, view, update, and delete tasks in a Kanban-style interface.
+- **Access**: Authenticated route for **both Users and Admins**
+- **Screenshot**:
+![Task Dashboard](screenshots/home-page.png)
+
+---
+
+### `/auth` – Role Selection Page
+Login entry point where users choose to log in as either an admin or a regular user.
+- **Access**: Public (non-authenticated)
+- **Screenshot**:
+![Auth Role Selection](screenshots/auth.png)
+
+---
+
+### `/auth/user` – User Login Page
+Dedicated login page for regular users. On successful login, users are redirected to the Task Dashboard.
+- **Access**: Public (non-authenticated)
+- **Screenshot**:
+![User Login](./screenshots/auth-user.png)
+
+---
+
+### `/auth/admin` – Admin Login Page
+
+Dedicated login page for administrators. Successful login redirects to the Admin Console.
+- **Access**: Public (non-authenticated)
+- **Screenshot**:
+![Admin Login](./screenshots/auth-admin.png)
+
+---
+
+### `/console` – Admin Console
+Admin-only interface for managing users. Admins can create, update, delete, and lock user accounts.
+- **Access**: Authenticated route for **Admins only**
+- **Screenshot**:
+![Admin Console](./screenshots/console.png)
+
+---
+
+> ⚠️ All main application routes require authentication. Only `/auth` and its child login pages are accessible without being signed in.
+
 ## Architecture
 Below is a comprehensive architectural diagram that illustrates the overall system design of the QuickTasks application. It highlights all core AWS services used (such as ECS, RDS, ALB, WAF, Secrets Manager, etc.), networking structure, and integrations with external services like Slack
 
-![Alt text](docs/arch-diagram.png)
+![Alt text](screenshots/arch-diagram.png)
 
 ### Infrastructure as Code (IaC)
 
