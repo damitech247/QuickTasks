@@ -2,6 +2,7 @@
 
 const Task = require("../models/Task");
 const { success, error } = require("../utils/response");
+const { sendSlackMessage } = require("../utils/slack");
 
 exports.createTask = async (req, res) => {
     try {
@@ -13,11 +14,32 @@ exports.createTask = async (req, res) => {
             priority,
             UserId: req.user.id,
         });
+
+        await sendSlackMessage(
+            `🆕 *New Task Created* by *${req.user.firstName}*\n*Title:* ${title}\n*Description:* ${description}`
+        );
+        
         return success(res, newTask, 201);
     } catch (err) {
         return error(res, 500, "Task creation failed", { details: err.message });
     }
 };
+
+// exports.createTask = async (req, res) => {
+//     try {
+//         const { title, description, deadline, priority } = req.body;
+//         const newTask = await Task.create({
+//             title,
+//             description,
+//             deadline,
+//             priority,
+//             UserId: req.user.id,
+//         });
+//         return success(res, newTask, 201);
+//     } catch (err) {
+//         return error(res, 500, "Task creation failed", { details: err.message });
+//     }
+// };
 
 exports.getAllTasks = async (req, res) => {
     try {
