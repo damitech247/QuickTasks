@@ -9,6 +9,39 @@ QuickTasks is a scalable and secure SaaS task management application. It include
 *  **API Base URL**: https://api.damitech.xyz
 
 ## Architecture
+Below is a comprehensive architectural diagram that illustrates the overall system design of the QuickTasks application. It highlights all core AWS services used (such as ECS, RDS, ALB, WAF, Secrets Manager, etc.), networking structure, and integrations with external services like Slack
+
+![Alt text](docs/arch-diagram.png)
+
+### Infrastructure as Code (IaC)
+
+The cloud infrastructure for QuickTasks is provisioned using **Terraform**. This ensures repeatable, version-controlled deployments across environments.
+
+### Provisioning Highlights
+
+- **IaC Tool**: Terraform
+- **Execution Platform**: Terraform Cloud (for state management and automated apply)
+- **Structure**:
+  - `environments/`: Contains environment-specific configurations (e.g., `dev`, `prod`)
+  - `modules/`: Reusable infrastructure modules
+
+### Benefits
+
+- Automated provisioning of VPC, ECS, ALB, Route 53 records, S3, CloudFront, and other AWS services
+- Environment isolation using separate workspaces in Terraform Cloud
+- Secure remote state management
+- Simplified change tracking and version control
+
+### To Apply Infrastructure (Locally for Testing)
+```bash
+git clone https://github.com/damitech247/QuickTasks
+cd environments/prod
+terraform init
+terraform plan
+terraform apply
+```
+
+> For live infrastructure, provisioning is automatically handled via **Terraform Cloud** connected to the Git repository.
 
 ### Domain & DNS Setup
 - **Domain**: `damitech.xyz` (purchased via GoDaddy)
@@ -30,6 +63,64 @@ QuickTasks is a scalable and secure SaaS task management application. It include
   - Integrated with **AWS WAF**
     - **AWS Managed Rules** for protection (SQLi, XSS)
     - Custom Web ACLs
+
+
+## GitHub Actions: CI/CD Deployment Pipeline
+
+This GitHub Actions workflow automates the deployment of both the **API** and **Frontend** services for the QuickTasks application using **AWS ECS** and **AWS ECR**.
+
+### Workflow File
+Located at: `.github/workflows/deploy.yml`
+
+
+### Trigger
+This workflow runs on:
+- `push` to the `main` branch
+- `pull_request` to the `main` branch
+
+### Jobs Overview
+
+#### 1. API Deployment Job (`api-deploy`)
+
+- Checkout code from GitHub
+- Configure AWS credentials using GitHub secrets
+- Authenticate Docker with AWS ECR
+- Build Docker image from `./server`
+- Tag and push image to AWS ECR
+- Force ECS service update for the API
+
+**ECR Repo**: `damitech/quicktasks-api`  
+**ECS Service**: `prod-quicktasks-api`  
+**Cluster**: `prod-cluster`
+
+
+#### 2. Frontend Deployment Job (`frontend-deploy`)
+
+- Checkout code
+- Configure AWS credentials
+- Authenticate with AWS ECR
+- Build Docker image from `./client`
+- Tag and push image to AWS ECR
+- Force ECS service update for the frontend
+
+**ECR Repo**: `damitech/quicktasks-frontend`  
+**ECS Service**: `prod-quicktasks-frontend`  
+**Cluster**: `prod-cluster`
+
+###  Required GitHub Secrets
+
+Make sure the following secrets are defined in your GitHub repository settings:
+
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
+
+
+### Benefits of Automated Deployment Pipeline
+
+- Zero-downtime deployments using `--force-new-deployment`
+- Secure image handling with ECR
+- Automated and consistent delivery to ECS on every change to `main`
+
 
 ## Application Stack
 
