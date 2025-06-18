@@ -1,5 +1,7 @@
 // client\src\lib\api\client.js
-import { PUBLIC_API_BASE_URL } from '$env/static/public';
+// import { PUBLIC_API_BASE_URL } from '$env/static/public';
+
+const PUBLIC_API_BASE_URL = 'https://api.damitech.xyz/';
 
 export async function apiFetch(path, method = 'GET', body = null) {
     const token = typeof localStorage !== 'undefined'
