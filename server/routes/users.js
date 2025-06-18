@@ -2,14 +2,14 @@
 
 const express = require("express");
 const router = express.Router();
-const auth = require("../../middleware/auth");
-const requireAdmin = require("../../middleware/requireAdmin");
-const userController = require("../../controllers/admin/userController");
-const handleValidation = require("../../middleware/handleValidation");
+const auth = require("../middleware/auth");
+const requireAdmin = require("../middleware/requireAdmin");
+const userController = require("../controllers/admin/userController");
+const handleValidation = require("../middleware/handleValidation");
 const {
     validateUserCreation,
     validateUserUpdate,
-} = require("../../middleware/validators");
+} = require("../middleware/validators");
 
 router.use(auth, requireAdmin);
 

@@ -2,6 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const logger = require("morgan");
 const helmet = require("helmet");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swaggerOptions");
 const cors = require("cors");
 const db = require("./config/db.config.js");
 const initRootAdmin = require("./initRootAdmin.js");
@@ -45,9 +47,12 @@ app.get("/", (req, res) => {
 
 // Route imports
 app.use("/api/auth", require("./routes/auth"));
-app.use("/api/admin/users", require("./routes/admin/users"));
+app.use("/api/admin/users", require("./routes/users.js"));
 app.use("/api/task", require("./routes/task"));
 app.use("/api/profile", require("./routes/profile"));
+
+// Swagger docs route
+app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Start server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));  

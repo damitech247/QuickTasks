@@ -9,6 +9,7 @@ const { validateTaskCreation, validateTaskUpdate } = require("../middleware/vali
 router.use(requireAuth);
 
 router.get("/", taskController.getAllTasks);
+
 router.get("/:id", taskController.getTaskById);
 router.post("/", validateTaskCreation, handleValidation, taskController.createTask);
 router.put("/:id", validateTaskUpdate, handleValidation, taskController.updateTask);
